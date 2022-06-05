@@ -32,8 +32,7 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg"
-                  Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -51,6 +50,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Microcharts.Maui\Microcharts.Maui.csproj" />
+        <ProjectReference Include="..\Microcharts.Samples\Microcharts.Samples.csproj" />
         <ProjectReference Include="..\Microcharts\Microcharts.csproj" />
     </ItemGroup>
 

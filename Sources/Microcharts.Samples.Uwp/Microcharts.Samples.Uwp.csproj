@@ -130,6 +130,10 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Microcharts.Samples\Microcharts.Samples.csproj">
+      <Project>{fff877dd-2d5d-4a3d-bf7e-e9ce7f7bbc69}</Project>
+      <Name>Microcharts.Samples</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microcharts.Uwp\Microcharts.Uwp.csproj">
       <Project>{4e28fcde-60f6-45ae-b444-701d5f30beff}</Project>
       <Name>Microcharts.Uwp</Name>
