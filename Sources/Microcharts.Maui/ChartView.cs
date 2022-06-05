@@ -1,80 +1,65 @@
-namespace Microcharts.Maui
+// Copyright (c) Morgan SOULLEZ. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using SkiaSharp;
+using SkiaSharp.Views.Maui;
+using SkiaSharp.Views.Maui.Controls;
+
+namespace Microcharts.Maui;
+
+public class ChartView : SKCanvasView
 {
-    using Microsoft.Maui.Controls;
-    using Microsoft.Maui.Graphics;
-    using SkiaSharp;
-    using SkiaSharp.Views.Maui;
-    using SkiaSharp.Views.Maui.Controls;
+    public static readonly BindableProperty ChartProperty = BindableProperty.Create(nameof(Chart), typeof(Chart), typeof(ChartView), null, propertyChanged: OnChartChanged);
 
-    public class ChartView : SKCanvasView
+    private Chart _chart;
+
+    private InvalidatedWeakEventHandler<ChartView> _handler;
+
+    public ChartView()
     {
-        #region Constructors
+        BackgroundColor = Colors.Transparent;
+        PaintSurface += OnPaintCanvas;
+    }
 
-        public ChartView()
+    public Chart Chart
+    {
+        get => (Chart)GetValue(ChartProperty);
+        set => SetValue(ChartProperty, value);
+    }
+
+    private static void OnChartChanged(BindableObject d, object oldValue, object value)
+    {
+        var view = d as ChartView;
+
+        if (view?._chart != null)
         {
-            this.BackgroundColor = Colors.Transparent;
-            this.PaintSurface += OnPaintCanvas;
+            view._handler.Dispose();
+            view._handler = null;
         }
 
-        #endregion
-
-        #region Static fields
-
-        public static readonly BindableProperty ChartProperty = BindableProperty.Create(nameof(Chart), typeof(Chart), typeof(ChartView), null, propertyChanged: OnChartChanged);
-
-        #endregion
-
-        #region Fields
-
-        private InvalidatedWeakEventHandler<ChartView> handler;
-
-        private Chart chart;
-
-        #endregion
-
-        #region Properties
-
-        public Chart Chart
+        if (view == null)
         {
-            get { return (Chart)GetValue(ChartProperty); }
-            set { SetValue(ChartProperty, value); }
+            return;
         }
 
-        #endregion
+        view._chart = value as Chart;
+        view.InvalidateSurface();
 
-        #region Methods
-
-        private static void OnChartChanged(BindableObject d, object oldValue, object value)
+        if (view._chart != null)
         {
-            var view = d as ChartView;
-
-            if (view.chart != null)
-            {
-                view.handler.Dispose();
-                view.handler = null;
-            }
-
-            view.chart = value as Chart;
-            view.InvalidateSurface();
-
-            if (view.chart != null)
-            {
-                view.handler = view.chart.ObserveInvalidate(view, (v) => v.InvalidateSurface());
-            }
+            view._handler = view._chart.ObserveInvalidate(view, v => v.InvalidateSurface());
         }
+    }
 
-        private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
+    private void OnPaintCanvas(object sender, SKPaintSurfaceEventArgs e)
+    {
+        if (_chart != null)
         {
-            if (this.chart != null)
-            {
-                this.chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
-            }
-            else
-            {
-                e.Surface.Canvas.Clear(SKColors.Transparent);
-            }
+            _chart.Draw(e.Surface.Canvas, e.Info.Width, e.Info.Height);
         }
-
-        #endregion
+        else
+        {
+            e.Surface.Canvas.Clear(SKColors.Transparent);
+        }
     }
 }
