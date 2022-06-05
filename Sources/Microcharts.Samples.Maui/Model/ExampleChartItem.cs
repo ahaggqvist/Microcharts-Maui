@@ -1,0 +1,18 @@
+namespace Microcharts.Samples;
+
+public class ExampleChartItem
+{
+    public Chart Chart { get; set; }
+    public string ChartType => Chart?.GetType()?.Name ?? "Unknown";
+    public string ExampleName { get; set; }
+    public string ExampleTextDescription { get; set; }
+    public ExampleChartType ExampleChartType { get; set; }
+    public bool IsSimple => ExampleChartType == ExampleChartType.Simple;
+    public bool IsSeries => ExampleChartType == ExampleChartType.Series;
+}
+
+public enum ExampleChartType
+{
+    Simple,
+    Series
+}
