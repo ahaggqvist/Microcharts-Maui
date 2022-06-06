@@ -5,9 +5,15 @@ namespace Microcharts
 {
     internal static class Ease
     {
-        public static float Out(float t) => t * t * t;
+        public static float Out(float t)
+        {
+            return t * t * t;
+        }
 
 
-        public static float In(float t) => (--t) * t * t + 1;
+        public static float In(float t)
+        {
+            return --t * t * t + 1;
+        }
     }
 }

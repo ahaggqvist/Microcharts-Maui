@@ -139,7 +139,7 @@
       <Name>Microcharts.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj">
-      <Project>{de24e243-1c2c-4923-8b2e-53f7b2abc814}</Project>
+      <Project>{fa08038b-0310-4708-bc2d-51e9a9342c76}</Project>
       <Name>Microcharts</Name>
     </ProjectReference>
   </ItemGroup>

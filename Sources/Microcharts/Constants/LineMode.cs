@@ -4,21 +4,21 @@
 namespace Microcharts
 {
     /// <summary>
-    /// Line drawing option
+    ///     Line drawing option
     /// </summary>
     public enum LineMode
     {
         /// <summary>
-        /// Not diplaying line
+        ///     Not diplaying line
         /// </summary>
         None,
+
         /// <summary>
-        /// 
         /// </summary>
         Spline,
+
         /// <summary>
-        /// 
         /// </summary>
-        Straight,
+        Straight
     }
 }

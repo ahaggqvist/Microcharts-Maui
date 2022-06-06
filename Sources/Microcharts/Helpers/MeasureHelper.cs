@@ -7,7 +7,7 @@ namespace Microcharts
     internal static class MeasureHelper
     {
         /// <summary>
-        /// Measures the text values.
+        ///     Measures the text values.
         /// </summary>
         /// <returns>The texts bounds.</returns>
         internal static SKRect[] MeasureTexts(string[] texts, float textSize)
@@ -20,7 +20,7 @@ namespace Microcharts
         }
 
         /// <summary>
-        /// Measures the text values.
+        ///     Measures the text values.
         /// </summary>
         /// <returns>The texts bounds.</returns>
         internal static SKRect[] MeasureTexts(string[] texts, SKPaint paint)
@@ -39,7 +39,7 @@ namespace Microcharts
         }
 
         /// <summary>
-        /// Calculates the height of the header or footer.
+        ///     Calculates the height of the header or footer.
         /// </summary>
         /// <returns>The header or footer height.</returns>
         /// <param name="margin">the global margin of chart</param>
@@ -68,7 +68,8 @@ namespace Microcharts
             return result;
         }
 
-        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint, Position yAxisPosition, int width, bool fixedRange, ref float maxValue, ref float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
+        internal static int CalculateYAxis(bool showYAxisText, bool showYAxisLines, IEnumerable<ChartEntry> entries, int yAxisMaxTicks, SKPaint yAxisTextPaint,
+            Position yAxisPosition, int width, bool fixedRange, ref float maxValue, ref float minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels)
         {
             yAxisXShift = 0.0f;
             yAxisIntervalLabels = new List<float>();
@@ -84,9 +85,13 @@ namespace Microcharts
                     if (minValue == maxValue)
                     {
                         if (minValue >= 0)
+                        {
                             maxValue += 100;
+                        }
                         else
+                        {
                             maxValue = 0;
+                        }
                     }
 
                     NiceScale.Calculate(minValue, maxValue, yAxisMaxTicks, out range, out tickSpacing, out niceMin, out niceMax);
@@ -97,16 +102,16 @@ namespace Microcharts
                     niceMin = minValue;
                     niceMax = maxValue;
                     range = niceMax - niceMin;
-                    tickSpacing = range / (yAxisMaxTicks-1);
+                    tickSpacing = range / (yAxisMaxTicks - 1);
                     ticks = yAxisMaxTicks;
                 }
 
                 yAxisIntervalLabels = Enumerable.Range(0, ticks)
-                    .Select(i => (float)(niceMax - (i * tickSpacing)))
+                    .Select(i => (float)(niceMax - i * tickSpacing))
                     .ToList();
 
                 var longestYAxisLabel = yAxisIntervalLabels.Aggregate(string.Empty, (max, cur) => max.Length > cur.ToString().Length ? max : cur.ToString());
-                var longestYAxisLabelWidth = MeasureHelper.MeasureTexts(new string[] { longestYAxisLabel }, yAxisTextPaint).Select(b => b.Width).FirstOrDefault();
+                var longestYAxisLabelWidth = MeasureTexts(new[] { longestYAxisLabel }, yAxisTextPaint).Select(b => b.Width).FirstOrDefault();
                 yAxisWidth = (int)(width - longestYAxisLabelWidth);
                 if (yAxisPosition == Position.Left)
                 {
@@ -122,10 +127,11 @@ namespace Microcharts
             return width;
         }
 
-        internal static SKPoint CalculatePoint(float margin, float animationProgress, float maxValue, float valueRange, float value, int i, SKSize itemSize, float origin, float headerHeight, float originX = 0)
+        internal static SKPoint CalculatePoint(float margin, float animationProgress, float maxValue, float valueRange, float value, int i, SKSize itemSize, float origin,
+            float headerHeight, float originX = 0)
         {
-            var x = originX + margin + (itemSize.Width / 2) + (i * (itemSize.Width + margin));
-            var y = headerHeight + ((1 - animationProgress) * (origin - headerHeight) + (((maxValue - value) / valueRange) * itemSize.Height) * animationProgress);
+            var x = originX + margin + itemSize.Width / 2 + i * (itemSize.Width + margin);
+            var y = headerHeight + ((1 - animationProgress) * (origin - headerHeight) + (maxValue - value) / valueRange * itemSize.Height * animationProgress);
 
             return new SKPoint(x, y);
         }

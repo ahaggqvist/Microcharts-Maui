@@ -4,21 +4,23 @@
 namespace Microcharts
 {
     /// <summary>
-    /// Point display mode
+    ///     Point display mode
     /// </summary>
     public enum PointMode
     {
         /// <summary>
-        /// No point
+        ///     No point
         /// </summary>
         None,
+
         /// <summary>
-        /// Circle point
+        ///     Circle point
         /// </summary>
         Circle,
+
         /// <summary>
-        /// Square point
+        ///     Square point
         /// </summary>
-        Square,
+        Square
     }
 }

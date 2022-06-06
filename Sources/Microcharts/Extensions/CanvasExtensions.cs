@@ -7,7 +7,8 @@ namespace Microcharts
 {
     internal static class CanvasExtensions
     {
-        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, string value, SKColor valueColor, float textSize, SKPoint point, SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
+        public static void DrawCaptionLabels(this SKCanvas canvas, string label, SKColor labelColor, string value, SKColor valueColor, float textSize, SKPoint point,
+            SKTextAlign horizontalAlignment, SKTypeface typeface, out SKRect totalBounds)
         {
             var hasLabel = !string.IsNullOrEmpty(label);
             var hasValueLabel = !string.IsNullOrEmpty(value);
@@ -23,20 +24,20 @@ namespace Microcharts
                 if (hasLabel)
                 {
                     using (var paint = new SKPaint
-                    {
-                        TextSize = textSize,
-                        IsAntialias = true,
-                        Color = labelColor,
-                        IsStroke = false,
-                        TextAlign = horizontalAlignment,
-                        Typeface = typeface
-                    })
+                           {
+                               TextSize = textSize,
+                               IsAntialias = true,
+                               Color = labelColor,
+                               IsStroke = false,
+                               TextAlign = horizontalAlignment,
+                               Typeface = typeface
+                           })
                     {
                         var bounds = new SKRect();
                         var text = label;
                         paint.MeasureText(text, ref bounds);
 
-                        var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) - space;
+                        var y = point.Y - (bounds.Top + bounds.Bottom) / 2 - space;
 
                         canvas.DrawText(text, point.X, y, paint);
 
@@ -47,22 +48,22 @@ namespace Microcharts
 
                 if (hasValueLabel)
                 {
-                    using (var paint = new SKPaint()
-                    {
-                        TextSize = textSize,
-                        IsAntialias = true,
-                        FakeBoldText = true,
-                        Color = valueColor,
-                        IsStroke = false,
-                        TextAlign = horizontalAlignment,
-                        Typeface = typeface
-                    })
+                    using (var paint = new SKPaint
+                           {
+                               TextSize = textSize,
+                               IsAntialias = true,
+                               FakeBoldText = true,
+                               Color = valueColor,
+                               IsStroke = false,
+                               TextAlign = horizontalAlignment,
+                               Typeface = typeface
+                           })
                     {
                         var bounds = new SKRect();
                         var text = value;
                         paint.MeasureText(text, ref bounds);
 
-                        var y = point.Y - ((bounds.Top + bounds.Bottom) / 2) + space;
+                        var y = point.Y - (bounds.Top + bounds.Bottom) / 2 + space;
 
                         canvas.DrawText(text, point.X, y, paint);
 
@@ -82,7 +83,7 @@ namespace Microcharts
         }
 
         /// <summary>
-        /// Draws the given point.
+        ///     Draws the given point.
         /// </summary>
         /// <param name="canvas">The canvas.</param>
         /// <param name="point">The point.</param>
@@ -92,16 +93,16 @@ namespace Microcharts
         public static void DrawPoint(this SKCanvas canvas, SKPoint point, SKColor color, float size, PointMode mode)
         {
             using (var paint = new SKPaint
-            {
-                Style = SKPaintStyle.Fill,
-                IsAntialias = true,
-                Color = color,
-            })
+                   {
+                       Style = SKPaintStyle.Fill,
+                       IsAntialias = true,
+                       Color = color
+                   })
             {
                 switch (mode)
                 {
                     case PointMode.Square:
-                        canvas.DrawRect(SKRect.Create(point.X - (size / 2), point.Y - (size / 2), size, size), paint);
+                        canvas.DrawRect(SKRect.Create(point.X - size / 2, point.Y - size / 2, size, size), paint);
                         break;
 
                     case PointMode.Circle:
@@ -113,7 +114,7 @@ namespace Microcharts
         }
 
         /// <summary>
-        /// Draws a line with a gradient stroke.
+        ///     Draws a line with a gradient stroke.
         /// </summary>
         /// <param name="canvas">The canvas.</param>
         /// <param name="startPoint">The starting point.</param>
@@ -126,12 +127,12 @@ namespace Microcharts
             using (var shader = SKShader.CreateLinearGradient(startPoint, endPoint, new[] { startColor, endColor }, null, SKShaderTileMode.Clamp))
             {
                 using (var paint = new SKPaint
-                {
-                    Style = SKPaintStyle.Stroke,
-                    StrokeWidth = size,
-                    Shader = shader,
-                    IsAntialias = true,
-                })
+                       {
+                           Style = SKPaintStyle.Stroke,
+                           StrokeWidth = size,
+                           Shader = shader,
+                           IsAntialias = true
+                       })
                 {
                     canvas.DrawLine(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, paint);
                 }
@@ -139,7 +140,7 @@ namespace Microcharts
         }
 
         /// <summary>
-        /// Draws text vertically aligned
+        ///     Draws text vertically aligned
         /// </summary>
         /// <param name="canvas">The canvas.</param>
         /// <param name="text">The text to display</param>
@@ -152,7 +153,7 @@ namespace Microcharts
         }
 
         /// <summary>
-        /// Draws text vertically aligned
+        ///     Draws text vertically aligned
         /// </summary>
         /// <param name="canvas">The canvas.</param>
         /// <param name="text">The text to display</param>
@@ -162,12 +163,12 @@ namespace Microcharts
         /// <remarks>https://stackoverflow.com/questions/27631736/meaning-of-top-ascent-baseline-descent-bottom-and-leading-in-androids-font</remarks>
         public static void DrawTextCenteredVertically(this SKCanvas canvas, string text, SKPaint paint, float x, float y)
         {
-            var textY = y + (((-paint.FontMetrics.Ascent + paint.FontMetrics.Descent) / 2) - paint.FontMetrics.Descent);
+            var textY = y + ((-paint.FontMetrics.Ascent + paint.FontMetrics.Descent) / 2 - paint.FontMetrics.Descent);
             canvas.DrawText(text, x, textY, paint);
         }
 
         /// <summary>
-        /// Gets the absolute bounds of a given rectangle, aligned at a given position.
+        ///     Gets the absolute bounds of a given rectangle, aligned at a given position.
         /// </summary>
         /// <param name="x">The absolute x position.</param>
         /// <param name="y">The absolute y position.</param>

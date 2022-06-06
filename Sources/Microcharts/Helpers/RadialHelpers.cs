@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Aloïs DENIEL. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
+using SkiaSharp;
+
 namespace Microcharts
 {
-    using System;
-    using SkiaSharp;
-
     internal static class RadialHelpers
     {
         #region Constants
@@ -38,24 +38,24 @@ namespace Microcharts
             // the the sector is a full circle, then do that
             if (end - start == 1.0f)
             {
-                path.AddCircle(0, 0, outerRadius, SKPathDirection.Clockwise);
-                path.AddCircle(0, 0, innerRadius, SKPathDirection.Clockwise);
+                path.AddCircle(0, 0, outerRadius);
+                path.AddCircle(0, 0, innerRadius);
                 path.FillType = SKPathFillType.EvenOdd;
                 return path;
             }
 
             // calculate the angles
-            var startAngle = (TotalAngle * start) - UprightAngle;
-            var endAngle = (TotalAngle * end) - UprightAngle;
+            var startAngle = TotalAngle * start - UprightAngle;
+            var endAngle = TotalAngle * end - UprightAngle;
             var large = endAngle - startAngle > PI ? SKPathArcSize.Large : SKPathArcSize.Small;
-            var sectorCenterAngle = ((endAngle - startAngle) / 2f) + startAngle;
+            var sectorCenterAngle = (endAngle - startAngle) / 2f + startAngle;
 
             // get the radius bits
-            var cectorCenterRadius = ((outerRadius - innerRadius) / 2f) + innerRadius;
+            var cectorCenterRadius = (outerRadius - innerRadius) / 2f + innerRadius;
 
             // calculate the angle for the margins
-            var offsetR = outerRadius == 0 ? 0 : ((margin / (TotalAngle * outerRadius)) * TotalAngle);
-            var offsetr = innerRadius == 0 ? 0 : ((margin / (TotalAngle * innerRadius)) * TotalAngle);
+            var offsetR = outerRadius == 0 ? 0 : margin / (TotalAngle * outerRadius) * TotalAngle;
+            var offsetr = innerRadius == 0 ? 0 : margin / (TotalAngle * innerRadius) * TotalAngle;
 
             // get the points
             var a = GetCirclePoint(outerRadius, startAngle + offsetR);

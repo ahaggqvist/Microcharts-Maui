@@ -8,9 +8,8 @@ using SkiaSharp;
 namespace Microcharts
 {
     /// <summary>
-    /// ![chart](../images/Line.png)
-    ///
-    /// Line chart.
+    ///     ![chart](../images/Line.png)
+    ///     Line chart.
     /// </summary>
     [Obsolete("Use LineChart instead.")]
     public class LegacyLineChart : LegacyPointChart
@@ -18,11 +17,11 @@ namespace Microcharts
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.LineChart"/> class.
+        ///     Initializes a new instance of the <see cref="T:Microcharts.LineChart" /> class.
         /// </summary>
         public LegacyLineChart()
         {
-            this.PointSize = 10;
+            PointSize = 10;
         }
 
         #endregion
@@ -30,25 +29,25 @@ namespace Microcharts
         #region Properties
 
         /// <summary>
-        /// Gets or sets the size of the line.
+        ///     Gets or sets the size of the line.
         /// </summary>
         /// <value>The size of the line.</value>
         public float LineSize { get; set; } = 3;
 
         /// <summary>
-        /// Gets or sets the line mode.
+        ///     Gets or sets the line mode.
         /// </summary>
         /// <value>The line mode.</value>
         public LineMode LineMode { get; set; } = LineMode.Spline;
 
         /// <summary>
-        /// Gets or sets the alpha of the line area.
+        ///     Gets or sets the alpha of the line area.
         /// </summary>
         /// <value>The line area alpha.</value>
         public byte LineAreaAlpha { get; set; } = 32;
 
         /// <summary>
-        /// Enables or disables a fade out gradient for the line area in the Y direction
+        ///     Enables or disables a fade out gradient for the line area in the Y direction
         /// </summary>
         /// <value>The state of the fadeout gradient.</value>
         public bool EnableYFadeOutGradient { get; set; } = false;
@@ -69,12 +68,12 @@ namespace Microcharts
             if (points.Length > 1 && LineMode != LineMode.None)
             {
                 using (var paint = new SKPaint
-                {
-                    Style = SKPaintStyle.Stroke,
-                    Color = SKColors.White,
-                    StrokeWidth = LineSize,
-                    IsAntialias = true,
-                })
+                       {
+                           Style = SKPaintStyle.Stroke,
+                           Color = SKColors.White,
+                           StrokeWidth = LineSize,
+                           IsAntialias = true
+                       })
                 {
                     using (var shader = CreateXGradient(points))
                     {
@@ -84,8 +83,8 @@ namespace Microcharts
 
                         path.MoveTo(points.First());
 
-                        var last = (LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
-                        for (int i = 0; i < last; i++)
+                        var last = LineMode == LineMode.Spline ? points.Length - 1 : points.Length;
+                        for (var i = 0; i < last; i++)
                         {
                             var entry = Entries.ElementAt(i);
                             if (LineMode == LineMode.Spline)
@@ -96,7 +95,11 @@ namespace Microcharts
                             }
                             else if (LineMode == LineMode.Straight)
                             {
-                                if (!entry.Value.HasValue) continue;
+                                if (!entry.Value.HasValue)
+                                {
+                                    continue;
+                                }
+
                                 path.LineTo(points[i]);
                             }
                         }
@@ -112,11 +115,11 @@ namespace Microcharts
             if (LineAreaAlpha > 0 && points.Length > 1)
             {
                 using (var paint = new SKPaint
-                {
-                    Style = SKPaintStyle.Fill,
-                    Color = SKColors.White,
-                    IsAntialias = true,
-                })
+                       {
+                           Style = SKPaintStyle.Fill,
+                           Color = SKColors.White,
+                           IsAntialias = true
+                       })
                 {
                     using (var shaderX = CreateXGradient(points, (byte)(LineAreaAlpha * AnimationProgress)))
                     using (var shaderY = CreateYGradient(points, (byte)(LineAreaAlpha * AnimationProgress)))
@@ -128,8 +131,8 @@ namespace Microcharts
                         path.MoveTo(points.First().X, origin);
                         path.LineTo(points.First());
 
-                        var last = (LineMode == LineMode.Spline) ? points.Length - 1 : points.Length;
-                        for (int i = 0; i < last; i++)
+                        var last = LineMode == LineMode.Spline ? points.Length - 1 : points.Length;
+                        for (var i = 0; i < last; i++)
                         {
                             var entry = Entries.ElementAt(i);
                             if (LineMode == LineMode.Spline)
@@ -140,7 +143,11 @@ namespace Microcharts
                             }
                             else if (LineMode == LineMode.Straight)
                             {
-                                if (!entry.Value.HasValue) continue;
+                                if (!entry.Value.HasValue)
+                                {
+                                    continue;
+                                }
+
                                 path.LineTo(points[i]);
                             }
                         }
@@ -187,7 +194,7 @@ namespace Microcharts
             return SKShader.CreateLinearGradient(
                 new SKPoint(0, startY),
                 new SKPoint(0, endY),
-                new[] {SKColors.White.WithAlpha(alpha), SKColors.White.WithAlpha(0)},
+                new[] { SKColors.White.WithAlpha(alpha), SKColors.White.WithAlpha(0) },
                 null,
                 SKShaderTileMode.Clamp);
         }

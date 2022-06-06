@@ -3,13 +3,14 @@ using System;
 namespace Microcharts
 {
     /// <summary>
-    /// to calculate axis numbers
-    /// https://stackoverflow.com/questions/8506881/nice-label-algorithm-for-charts-with-minimum-ticks?noredirect=1&lq=1#answer-28284941
+    ///     to calculate axis numbers
+    ///     https://stackoverflow.com/questions/8506881/nice-label-algorithm-for-charts-with-minimum-ticks?noredirect=1&lq
+    ///     =1#answer-28284941
     /// </summary>
     public static class NiceScale
     {
         /// <summary>
-        /// Calculate axis numbers
+        ///     Calculate axis numbers
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>

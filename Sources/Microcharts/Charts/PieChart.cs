@@ -4,20 +4,19 @@
 namespace Microcharts
 {
     /// <summary>
-    /// ![chart](../images/Donut.png)
-    ///
-    /// Pie chart.
+    ///     ![chart](../images/Donut.png)
+    ///     Pie chart.
     /// </summary>
     public class PieChart : DonutChart
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Microcharts.PieChart"/> class.
+        ///     Initializes a new instance of the <see cref="T:Microcharts.PieChart" /> class.
         /// </summary>
         public PieChart()
         {
-            this.HoleRadius = 0;
+            HoleRadius = 0;
         }
 
         #endregion
