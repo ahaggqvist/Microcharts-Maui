@@ -14,6 +14,11 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Authors>Aloïs Deniel, Ed Lomonaco, Morgan Soullez</Authors>
+		<Title>Microcharts.Maui</Title>
+		<Description>Simple, cross-platform chart library for Maui.</Description>
+		<Version>1.0.0.1</Version>
     </PropertyGroup>
 
 	<ItemGroup>

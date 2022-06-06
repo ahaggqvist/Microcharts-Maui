@@ -117,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microcharts\Microcharts.csproj">
-      <Project>{de24e243-1c2c-4923-8b2e-53f7b2abc814}</Project>
+      <Project>{d07d3e94-e645-4035-a142-5f933a15d585}</Project>
       <Name>Microcharts</Name>
     </ProjectReference>
   </ItemGroup>
