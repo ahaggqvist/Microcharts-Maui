@@ -128,7 +128,9 @@ namespace Microcharts
         {
             if (Entries != null)
             {
-                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, Entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, out float yAxisXShift, out List<float> yAxisIntervalLabels);
+                float maxValue = MaxValue;
+                float minValue = MinValue;
+                width = MeasureHelper.CalculateYAxis(ShowYAxisText, ShowYAxisLines, Entries, YAxisMaxTicks, YAxisTextPaint, YAxisPosition, width, false, ref maxValue, ref minValue, out float yAxisXShift, out List<float> yAxisIntervalLabels);
                 var labels = Entries.Select(x => x.Label).ToArray();
                 var labelSizes = MeasureHelper.MeasureTexts(labels, LabelTextSize);
                 var footerHeight = MeasureHelper.CalculateFooterHeaderHeight(Margin, LabelTextSize, labelSizes, LabelOrientation);
@@ -179,9 +181,8 @@ namespace Microcharts
             for (int i = 0; i < Entries.Count(); i++)
             {
                 var entry = Entries.ElementAt(i);
-                var value = entry.Value;
-
-                result.Add(MeasureHelper.CalculatePoint(Margin, AnimationProgress, MaxValue, ValueRange, value, i, itemSize, origin, headerHeight, originX));
+                var value = entry.Value.HasValue ? entry.Value : 0;
+                result.Add(MeasureHelper.CalculatePoint(Margin, AnimationProgress, MaxValue, ValueRange, value.Value, i, itemSize, origin, headerHeight, originX));
             }
 
             return result.ToArray();
@@ -220,6 +221,8 @@ namespace Microcharts
                 for (int i = 0; i < points.Length; i++)
                 {
                     var entry = Entries.ElementAt(i);
+                    if (!entry.Value.HasValue) continue;
+
                     var point = points[i];
                     canvas.DrawPoint(point, entry.Color, PointSize, PointMode);
                 }
@@ -233,6 +236,8 @@ namespace Microcharts
                 for (int i = 0; i < points.Length; i++)
                 {
                     var entry = Entries.ElementAt(i);
+                    if (!entry.Value.HasValue) continue;
+
                     var point = points[i];
                     var y = Math.Min(origin, point.Y);
 
@@ -269,8 +274,8 @@ namespace Microcharts
             {
                 for (int i = 0; i < points.Length; i++)
                 {
-                    var entry = Entries.ElementAt(i);
-                    if (!string.IsNullOrEmpty(entry.ValueLabel))
+                    //var entry = Entries.ElementAt(i);
+                    if (!string.IsNullOrEmpty(texts[i]))
                     {
                         DrawHelper.DrawLabel(canvas, orientation, isTop ? YPositionBehavior.UpToElementHeight : YPositionBehavior.None, itemSize, points[i], colors[i], sizes[i], texts[i], LabelTextSize, Typeface);
                     }

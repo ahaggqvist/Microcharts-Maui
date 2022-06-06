@@ -16,12 +16,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcharts", "Microcharts\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EFA376D4-83E0-47FD-895F-1E451748C2C9}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
 		..\NuGet\Microcharts.Maui.nuspec = ..\NuGet\Microcharts.Maui.nuspec
 		..\NuGet\Microcharts.Uwp.nuspec = ..\NuGet\Microcharts.Uwp.nuspec
 		..\NuGet\Microcharts.WinUI.nuspec = ..\NuGet\Microcharts.WinUI.nuspec
 		Nuget.config = Nuget.config
-		..\NuGet\Package.Forms.nuspec = ..\NuGet\Package.Forms.nuspec
 		..\NuGet\Package.nuspec = ..\NuGet\Package.nuspec
 	EndProjectSection
 EndProject
@@ -87,8 +85,8 @@ Global
 		{33901013-B4A3-4182-9048-49F2CF940429}.Debug|x86.ActiveCfg = Debug|x86
 		{33901013-B4A3-4182-9048-49F2CF940429}.Debug|x86.Build.0 = Debug|x86
 		{33901013-B4A3-4182-9048-49F2CF940429}.Debug|x86.Deploy.0 = Debug|x86
-		{33901013-B4A3-4182-9048-49F2CF940429}.Release|Any CPU.ActiveCfg = Release|x86
-		{33901013-B4A3-4182-9048-49F2CF940429}.Release|Any CPU.Build.0 = Release|x86
+		{33901013-B4A3-4182-9048-49F2CF940429}.Release|Any CPU.ActiveCfg = Release|x64
+		{33901013-B4A3-4182-9048-49F2CF940429}.Release|Any CPU.Build.0 = Release|x64
 		{33901013-B4A3-4182-9048-49F2CF940429}.Release|ARM.ActiveCfg = Release|ARM
 		{33901013-B4A3-4182-9048-49F2CF940429}.Release|ARM.Build.0 = Release|ARM
 		{33901013-B4A3-4182-9048-49F2CF940429}.Release|ARM.Deploy.0 = Release|ARM
